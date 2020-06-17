@@ -9,6 +9,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min';
 import './App.css';
 import AddTechModal from './components/techs/AddTechModal';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const App = () => {
   useEffect(() => {
@@ -17,17 +19,19 @@ const App = () => {
   });
 
   return (
-    <>
-      <SearchBar />
-      <div className="container">
-        <Logs />
-        <AddBtn />
-        <AddLogModal />
-        <EditLogModal />
-        <AddTechModal />
-        <TechListModal />
-      </div>
-    </>
+    <Provider store={store}>
+      <>
+        <SearchBar />
+        <div className="container">
+          <Logs />
+          <AddBtn />
+          <AddLogModal />
+          <EditLogModal />
+          <AddTechModal />
+          <TechListModal />
+        </div>
+      </>
+    </Provider>
   );
 };
 
