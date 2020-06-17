@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import PropTypes from 'prop-types';
