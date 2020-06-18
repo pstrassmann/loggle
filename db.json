@@ -1,25 +1,25 @@
 {
   "logs": [
     {
-      "id": 1,
-      "message": "Changed hard drive on workstation 005",
+      "message": "Reset workstation 100",
       "attention": false,
-      "date": "03-02-2019",
-      "tech": "Sam Smith"
+      "tech": "Sam Smith",
+      "date": "2020-06-18T20:13:43.495Z",
+      "id": 1
     },
     {
       "id": 2,
-      "message": "Workstation 007 not posting",
-      "attention": true,
-      "date": "03-02-2019",
-      "tech": "John Doe"
+      "message": "FIXED: Wireless not working in conferennce room 8",
+      "attention": false,
+      "tech": "John Doe",
+      "date": "2020-06-18T20:17:50.991Z"
     },
     {
-      "id": 3,
-      "message": "Changed memory on workstation 050",
+      "message": "Fixed wireless issue on workstation 2",
       "attention": false,
-      "date": "03-02-2019",
-      "tech": "Sara Wilson"
+      "tech": "Sara Wilson",
+      "date": "2020-06-18T20:15:11.361Z",
+      "id": 4
     }
   ],
   "techs": [

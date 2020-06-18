@@ -1,7 +1,11 @@
 import React, { useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
+import { addLog } from '../../actions/logActions';
+import PropTypes from 'prop-types';
 
-const AddLogModal = () => {
+const AddLogModal = (props) => {
+  const { addLog } = props;
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
@@ -11,11 +15,23 @@ const AddLogModal = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (message === '' || tech === '') {
-      M.toast({html: 'Please enter a log message and technician', classes: "red"})
+      M.toast({
+        html: 'Please enter a log message and technician',
+        classes: 'red',
+      });
     } else {
       const modalInstance = M.Modal.getInstance(addLogModal.current);
       modalInstance.close();
-      console.log(message, tech, attention);
+      addLog({
+        message,
+        attention,
+        tech,
+        date: new Date(),
+      });
+      M.toast({
+        html: `Log added by ${tech}`,
+        classes: 'green',
+      });
       setMessage('');
       setTech('');
       setAttention(false);
@@ -23,9 +39,14 @@ const AddLogModal = () => {
   };
 
   return (
-    <div ref={addLogModal} id="add-log-modal" className="modal" style={modalStyle}>
+    <div
+      ref={addLogModal}
+      id="add-log-modal"
+      className="modal"
+      style={modalStyle}
+    >
       <div className="modal-content">
-        <h4 style={{marginBottom: '2rem'}}>Enter System Log</h4>
+        <h4 style={{ marginBottom: '2rem' }}>Enter System Log</h4>
         <div className="row">
           <div className="input-field">
             <input
@@ -59,10 +80,9 @@ const AddLogModal = () => {
         <div className="row">
           <div className="input-field">
             <p>
-              <label htmlFor="attention-checkbox">
+              <label>
                 <input
                   type="checkbox"
-                  id="attention-checkbox"
                   className="filled-in"
                   checked={attention}
                   value={attention}
@@ -77,9 +97,10 @@ const AddLogModal = () => {
         </div>
       </div>
       <div className="modal-footer">
-        <button type="button"
-                className="btn-flat grey lighten-2 waves-effect modal-close"
-                style={{marginRight: "0.8rem"}}
+        <button
+          type="button"
+          className="btn-flat grey lighten-2 waves-effect modal-close"
+          style={{ marginRight: '0.8rem' }}
         >
           Cancel
         </button>
@@ -87,7 +108,7 @@ const AddLogModal = () => {
           href="#!"
           onClick={onSubmit}
           className="waves-effect waves-light btn blue"
-          style={{marginRight: '1rem'}}
+          style={{ marginRight: '1rem' }}
         >
           Enter
         </a>
@@ -101,4 +122,12 @@ const modalStyle = {
   height: '75%',
 };
 
-export default AddLogModal;
+AddLogModal.propTypes = {
+  addLog: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  log: state.log,
+});
+
+export default connect(mapStateToProps, { addLog })(AddLogModal);
