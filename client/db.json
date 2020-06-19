@@ -1,0 +1,78 @@
+{
+  "logs": [
+    {
+      "id": 1,
+      "message": "Fixed wireless connectivity issue on workstation 25",
+      "attention": false,
+      "tech": "Ki Adi Mundi",
+      "date": "2020-06-19T21:42:13.709Z"
+    },
+    {
+      "id": 2,
+      "message": "Battery no longer holding charge on laptop 28",
+      "attention": true,
+      "tech": "IG 88",
+      "date": "2020-06-19T21:42:00.135Z"
+    },
+    {
+      "message": "Keyboard failures on workstation 23",
+      "attention": true,
+      "tech": "Rey Palpatine",
+      "date": "2020-06-19T21:38:58.630Z",
+      "id": 3
+    },
+    {
+      "message": "Upgraded RAM on personal TIE",
+      "attention": false,
+      "tech": "Ben Solo",
+      "date": "2020-06-19T21:40:09.234Z",
+      "id": 4
+    },
+    {
+      "message": "Button illumination intermittent on console 1",
+      "attention": true,
+      "tech": "Ki Adi Mundi",
+      "date": "2020-06-19T21:41:10.730Z",
+      "id": 5
+    },
+    {
+      "message": "Completed display replacement on workstation 10",
+      "attention": false,
+      "tech": "Leia Organa",
+      "date": "2020-06-19T21:42:43.690Z",
+      "id": 6
+    }
+  ],
+  "techs": [
+    {
+      "id": 3,
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    {
+      "firstName": "Ki",
+      "lastName": "Adi Mundi",
+      "id": 6
+    },
+    {
+      "firstName": "IG",
+      "lastName": "88",
+      "id": 7
+    },
+    {
+      "firstName": "Leia",
+      "lastName": "Organa",
+      "id": 8
+    },
+    {
+      "firstName": "Rey",
+      "lastName": "Palpatine",
+      "id": 9
+    },
+    {
+      "firstName": "Ben",
+      "lastName": "Solo",
+      "id": 10
+    }
+  ]
+}
