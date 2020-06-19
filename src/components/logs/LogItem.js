@@ -4,40 +4,57 @@ import parseISO from 'date-fns/parseISO';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteLog, setCurrent } from '../../actions/logActions';
+import { setSearchTech } from '../../actions/techActions';
 import M from 'materialize-css/dist/js/materialize.min';
 
-const LogItem = ({ log, deleteLog, setCurrent }) => {
+const LogItem = ({ log, deleteLog, setCurrent, setSearchTech }) => {
   const onDelete = () => {
     deleteLog(log.id);
     M.toast({ html: 'Log deleted', classes: 'orange' });
   };
   return (
-    <li className="collection-item">
+    <li
+      className="collection-item"
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
       <div>
-        <a
-          href="#edit-log-modal"
-          className={`modal-trigger ${
+        <span
+          className={`${
             log.attention ? 'red-text' : 'blue-text'
           }`}
+        >
+          {log.message}
+        </span>
+        <br />
+        <span className="grey-text">
+          <span className="black-text">{`ID #${log.id} `}</span>
+          {'last updated by '}
+          <span className="black-text clickable-label" onClick={() => setSearchTech(log.tech)}>{`${log.tech}`}</span>
+          {log.date &&
+            ` on ${format(parseISO(log.date), 'MM-dd-yyyy h:mm:ss a')}`}
+        </span>
+      </div>
+      <div className="">
+        <button
+          type="button"
+          className="button-icon-only modal-trigger"
+          data-target="edit-log-modal"
           onClick={() => {
             setCurrent(log);
           }}
         >
-          {log.message}
-        </a>
+          <i className="material-icons grey-text">edit</i>
+        </button>
         <br />
-        <span className="grey-text">
-          <span className="black-text">{`ID #${log.id} `}</span>
-          last updated by
-          <span className="black-text">{` ${log.tech} `}</span>
-          {log.date &&
-            `on ${format(parseISO(log.date), 'MM-dd-yyyy h:mm:ss a')}`}
-        </span>
-        <a href="!#" className="secondary-content">
+        <button type="button" className="button-icon-only">
           <i className="material-icons grey-text" onClick={onDelete}>
             delete
           </i>
-        </a>
+        </button>
       </div>
     </li>
   );
@@ -49,4 +66,4 @@ LogItem.propTypes = {
   setCurrent: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteLog, setCurrent })(LogItem);
+export default connect(null, { deleteLog, setCurrent, setSearchTech })(LogItem);

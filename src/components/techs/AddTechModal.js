@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min';
+import { connect } from 'react-redux';
+import { addTech } from '../../actions/techActions';
 
-const AddTechModal = () => {
+const AddTechModal = ({ addTech }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -12,6 +14,11 @@ const AddTechModal = () => {
     if (firstName === '' || lastName === '') {
       M.toast({ html: 'Please enter full name of technician', classes: 'red' });
     } else {
+      addTech({ firstName, lastName });
+      M.toast({
+        html: `Added ${firstName} ${lastName}`,
+        classes: 'green',
+      });
       const modalInstance = M.Modal.getInstance(addTechModal.current);
       modalInstance.close();
       setFirstName('');
@@ -20,11 +27,7 @@ const AddTechModal = () => {
   };
 
   return (
-    <div
-      ref={addTechModal}
-      id="add-tech-modal"
-      className="modal"
-    >
+    <div ref={addTechModal} id="add-tech-modal" className="modal">
       <div className="modal-content">
         <h4 style={{ marginBottom: '2rem' }}>Add Technician</h4>
         <div className="row">
@@ -55,22 +58,22 @@ const AddTechModal = () => {
       <div className="modal-footer">
         <button
           type="button"
-          className="btn-flat grey lighten-2 waves-effect modal-close"
+          className="btn-flat grey lighten-2 waves-effect modal-close hover-effect"
           style={{ marginRight: '0.8rem' }}
         >
           Cancel
         </button>
-        <a
-          href="#!"
+        <button
+          type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn blue"
+          className="waves-effect waves-light btn blue hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter
-        </a>
+        </button>
       </div>
     </div>
   );
 };
 
-export default AddTechModal;
+export default connect(null, { addTech })(AddTechModal);

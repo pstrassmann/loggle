@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
+import TechSelectOptions from '../techs/TechSelectOptions';
 import { addLog } from '../../actions/logActions';
 import PropTypes from 'prop-types';
 
@@ -65,15 +66,13 @@ const AddLogModal = (props) => {
             <select
               name="tech"
               value={tech}
-              className=""
+              className="browser-default"
               onChange={(e) => setTech(e.target.value)}
             >
               <option value="" disabled>
                 Select Technician
               </option>
-              <option value="John Doe">John Doe</option>
-              <option value="Sam Smith">Sam Smith</option>
-              <option value="Sara Wilson">Sara Wilson</option>
+              <TechSelectOptions />
             </select>
           </div>
         </div>
@@ -99,19 +98,19 @@ const AddLogModal = (props) => {
       <div className="modal-footer">
         <button
           type="button"
-          className="btn-flat grey lighten-2 waves-effect modal-close"
+          className="btn-flat grey lighten-2 waves-effect modal-close hover-effect"
           style={{ marginRight: '0.8rem' }}
         >
           Cancel
         </button>
-        <a
-          href="#!"
+        <button
+          type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn blue"
+          className="waves-effect waves-light btn blue hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter
-        </a>
+        </button>
       </div>
     </div>
   );

@@ -12,3 +12,5 @@ export const GET_TECHS = 'GET_TECHS';
 export const ADD_TECH = 'ADD_TECH';
 export const DELETE_TECH = 'DELETE_TECH';
 export const TECHS_ERROR = 'TECHS_ERROR';
+export const SET_SEARCH_TECH = 'SET_SEARCH_TECH';
+export const CLEAR_SEARCH_TECH = 'CLEAR_SEARCH_TECH';

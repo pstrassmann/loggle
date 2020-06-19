@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import TechSelectOptions from '../techs/TechSelectOptions';
 import M from 'materialize-css/dist/js/materialize.min';
 import { connect } from 'react-redux';
 import { updateLog } from '../../actions/logActions';
@@ -55,7 +55,7 @@ const EditLogModal = ({ current, updateLog }) => {
       style={modalStyle}
     >
       <div className="modal-content">
-        <h4 style={{ marginBottom: '2rem' }}>Enter System Log</h4>
+        <h4 style={{ marginBottom: '2rem' }}>Edit System Log</h4>
         <div className="row">
           <div className="input-field">
             <input
@@ -78,9 +78,7 @@ const EditLogModal = ({ current, updateLog }) => {
               <option value="" disabled>
                 Select Technician
               </option>
-              <option value="John Doe">John Doe</option>
-              <option value="Sam Smith">Sam Smith</option>
-              <option value="Sara Wilson">Sara Wilson</option>
+              <TechSelectOptions />
             </select>
           </div>
         </div>
@@ -106,19 +104,19 @@ const EditLogModal = ({ current, updateLog }) => {
       <div className="modal-footer">
         <button
           type="button"
-          className="btn-flat grey lighten-2 waves-effect modal-close"
+          className="btn-flat grey lighten-2 waves-effect modal-close hover-effect"
           style={{ marginRight: '0.8rem' }}
         >
           Cancel
         </button>
-        <a
-          href="#!"
+        <button
+          type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn-flat blue"
+          className="waves-effect waves-light btn blue hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter
-        </a>
+        </button>
       </div>
     </div>
   );
@@ -132,10 +130,5 @@ const modalStyle = {
 const mapStateToProps = (state) => ({
   current: state.log.current,
 });
-
-EditLogModal.propTypes = {
-  current: PropTypes.object.isRequired,
-  updateLog: PropTypes.func.isRequired,
-};
 
 export default connect(mapStateToProps, { updateLog })(EditLogModal);
