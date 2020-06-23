@@ -24,25 +24,32 @@ router.get('/', auth, async (req, res) => {
 // @access    Private
 router.post(
   '/',
-  [auth, [check('message', 'Log message is required').not().isEmpty()]],
+  [
+    auth,
+    [
+      check('message', 'Log message is required').not().isEmpty(),
+      check('tech', 'Tech is required').not().isEmpty(),
+    ],
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { message, attention } = req.body;
+    const { message, tech, attention } = req.body;
 
     try {
       const newLog = new Log({
         message,
+        tech,
         attention,
         user: req.user.id,
       });
       const log = await newLog.save();
       res.json(log);
     } catch (err) {
-      res.status(500).send("Error saving log");
+      res.status(500).send('Error saving log');
     }
   }
 );
@@ -51,10 +58,10 @@ router.post(
 // @desc      Update log
 // @access    Private
 router.put('/:id', auth, async (req, res) => {
-  const { message, attention } = req.body;
+  const { message, tech, attention } = req.body;
 
   // Build log object
-  const logFields = { message, attention };
+  const logFields = { message, tech, attention };
 
   try {
     let log = await Log.findById(req.params.id);
@@ -69,7 +76,7 @@ router.put('/:id', auth, async (req, res) => {
     log = await Log.findByIdAndUpdate(
       req.params.id,
       { $set: logFields },
-      { new: true },
+      { new: true }
     );
 
     res.json(log);
