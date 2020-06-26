@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const TechSchema = mongoose.Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -16,4 +20,4 @@ const TechSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('tech', TechSchema);
+module.exports = mongoose.model('techs', TechSchema);
