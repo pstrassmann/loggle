@@ -24,7 +24,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     const { name, email, password } = req.body;
@@ -34,7 +34,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ msg: 'A user has already registered with this email.' });
+          .json({ error: 'A user has already registered with this email.' });
       }
 
       user = new User({
@@ -63,7 +63,7 @@ router.post(
         },
       );
     } catch (err) {
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ error: 'Server Error' });
     }
   },
 );

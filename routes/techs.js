@@ -16,7 +16,7 @@ router.get('/', auth, async (req, res) => {
     });
     res.json(techs);
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).json({error: 'Server error'});
   }
 });
 
@@ -28,26 +28,28 @@ router.post(
   [
     auth,
     [
-      check('name', 'Tech name is required').not().isEmpty(),
+      check('firstName', 'Tech first name is required').not().isEmpty(),
+      check('lastName', 'Tech last name is required').not().isEmpty(),
     ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
-    const { name } = req.body;
+    const { firstName, lastName } = req.body;
 
     try {
       const newTech = new Tech({
-        name,
+        firstName,
+        lastName,
         user: req.user.id,
       });
       const tech = await newTech.save();
       res.json(tech);
     } catch (err) {
-      res.status(500).send('Error saving tech');
+      res.status(500).json({error: 'Error saving tech'});
     }
   }
 );
@@ -56,19 +58,19 @@ router.post(
 // @desc      Update tech
 // @access    Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, tech, attention } = req.body;
+  const { firstName, lastName} = req.body;
 
   // Build tech object
-  const techFields = { name };
+  const techFields = { firstName, lastName };
 
   try {
     let tech = await Tech.findById(req.params.id);
 
-    if (!tech) return res.status(404).json({ msg: 'Tech not found' });
+    if (!tech) return res.status(404).json({ error: 'Tech not found' });
 
     // Make sure user owns tech
     if (tech.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     tech = await Tech.findByIdAndUpdate(
@@ -79,7 +81,7 @@ router.put('/:id', auth, async (req, res) => {
 
     res.json(tech);
   } catch (err) {
-    res.status(500).send('Error saving tech');
+    res.status(500).json({error: 'Error saving tech'});
   }
 });
 
@@ -90,18 +92,18 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const tech = await Tech.findById(req.params.id);
 
-    if (!tech) return res.status(404).json({ msg: 'Tech not found' });
+    if (!tech) return res.status(404).json({ error: 'Tech not found' });
 
     // Make sure user owns tech
     if (tech.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     await Tech.findByIdAndRemove(req.params.id);
 
     res.json({ msg: 'Tech removed' });
   } catch (err) {
-    res.status(500).send('Error deleting tech');
+    res.status(500).json({error: 'Error deleting tech'});
   }
 });
 

@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
     });
     res.json(logs);
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).json({error: 'Server error'});
   }
 });
 
@@ -34,7 +34,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array() });
     }
 
     const { message, tech, attention } = req.body;
@@ -49,7 +49,7 @@ router.post(
       const log = await newLog.save();
       res.json(log);
     } catch (err) {
-      res.status(500).send('Error saving log');
+      res.status(500).json( {error: 'Error saving log'});
     }
   }
 );
@@ -66,11 +66,11 @@ router.put('/:id', auth, async (req, res) => {
   try {
     let log = await Log.findById(req.params.id);
 
-    if (!log) return res.status(404).json({ msg: 'Log not found' });
+    if (!log) return res.status(404).json({ error: 'Log not found' });
 
     // Make sure user owns log
     if (log.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     log = await Log.findByIdAndUpdate(
@@ -81,7 +81,7 @@ router.put('/:id', auth, async (req, res) => {
 
     res.json(log);
   } catch (err) {
-    res.status(500).send('Error saving log');
+    res.status(500).json({error: 'Error saving log'});
   }
 });
 
@@ -92,18 +92,18 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const log = await Log.findById(req.params.id);
 
-    if (!log) return res.status(404).json({ msg: 'Log not found' });
+    if (!log) return res.status(404).json({ error: 'Log not found' });
 
     // Make sure user owns log
     if (log.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     await Log.findByIdAndRemove(req.params.id);
 
     res.json({ msg: 'Log removed' });
   } catch (err) {
-    res.status(500).send('Error saving log');
+    res.status(500).json({error: 'Error saving log'});
   }
 });
 
