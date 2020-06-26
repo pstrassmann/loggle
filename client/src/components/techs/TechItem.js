@@ -2,15 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteTech } from '../../actions/techActions';
-import M from 'materialize-css/dist/js/materialize.min';
 
 const TechItem = ({ tech, deleteTech }) => {
   const handleDelete = () => {
-    deleteTech(tech.id);
-    M.toast({
-      html: `Removed ${tech.firstName} ${tech.lastName}`,
-      classes: 'orange',
-    });
+    deleteTech(tech);
   };
   return (
     <li className="collection-item">
