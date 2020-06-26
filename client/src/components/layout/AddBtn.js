@@ -6,7 +6,7 @@ const AddBtn = () => {
       <button
         type="button"
         data-target="add-log-modal"
-        className="btn-floating btn-large blue darken-2 modal-trigger"
+        className="btn-floating background-primary-light btn-large modal-trigger"
       >
         <i className="large material-icons">add</i>
       </button>

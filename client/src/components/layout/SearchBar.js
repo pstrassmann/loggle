@@ -37,7 +37,7 @@ const SearchBar = ({ searchLogs, clearLogs, searchTech, clearSearchTech }) => {
   }, [searchTech]);
 
   return (
-    <nav style={{ marginBottom: '30px' }} className="blue">
+    <nav className="rounded-top-corners" style={{background: '#019e9f'}}>
       <div className="nav-wrapper">
         <form>
           <div className="input-field">

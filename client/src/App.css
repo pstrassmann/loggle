@@ -1,10 +1,4 @@
-.material-icons {
-
-}
-
-.material-icons:hover {
-
-}
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@800&display=swap');
 
 .button-icon-only {
     transition: transform 200ms;
@@ -29,9 +23,15 @@
     cursor: pointer;
 }
 
+#search {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+}
+
 #search:focus {
-    background-color: rgb(93, 180, 248);
-    color: #000;
+    background-color: rgba(6, 194, 194, 0.65);
+    color: #fff;
 }
 
 #search::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -50,19 +50,94 @@
 .clickable-label {
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color: rgb(93, 180, 248);
+    text-decoration-color: #005b63;
 }
 
 .clickable-label:hover {
     text-decoration-color: #000;
 }
 
-.collection-header {
-    color: black;
-    /*background-color: #e9e9e9 !important;*/
-}
-
-.with-header {
+.rounded-top-corners {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.add-log-button {
+    background-color: #019e9f;
+}
+
+#navbar {
+    height: 6rem;
+    background: #005b63;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#navlinks {
+    text-decoration: none;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-self: right;
+}
+
+#navlinks li:nth-child(1) {
+    margin-right: 0.7rem;
+}
+
+#logo {
+    color: white;
+    font-family: 'Exo', sans-serif;
+    font-size: 3rem;
+}
+
+.nav-button {
+    color: white;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: background-color 100ms;
+}
+
+.logout-icon {
+    font-size: 1.4rem;
+    padding-right: 0.4rem;
+}
+
+.logout-button {
+    color: white;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 100ms;
+}
+
+
+.nav-button:hover, .logout-button:hover {
+    background-color: rgba(1, 158, 159, 0.76);
+}
+
+.nav-welcome {
+    color: white;
+    font-family: 'Evo', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-self: end;
+    margin-right: 2rem;
+}
+
+.nav-welcome-row {
+    display: flex;
+    align-items: center;
+}
+
+.background-primary-light {
+    background-color: #019e9f;
 }
