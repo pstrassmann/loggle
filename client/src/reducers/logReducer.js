@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
         loading: true,
       };
     case LOGS_ERROR:
-      console.error(action.payload);
       return {
         ...state,
         error: action.payload,
@@ -47,7 +46,7 @@ export default (state = initialState, action) => {
     case DELETE_LOG:
       return {
         ...state,
-        logs: state.logs.filter((log) => log.id !== action.payload),
+        logs: state.logs.filter((log) => log._id !== action.payload),
         loading: false,
       };
     case SET_CURRENT:
@@ -64,7 +63,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         logs: state.logs.map((log) => {
-          if (log.id === action.payload.id) {
+          if (log._id === action.payload._id) {
             return action.payload;
           }
           return log;

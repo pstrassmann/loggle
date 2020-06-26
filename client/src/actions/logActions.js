@@ -6,8 +6,14 @@ import {
   DELETE_LOG,
   SET_CURRENT,
   UPDATE_LOG,
-  CLEAR_CURRENT, SEARCH_LOGS, CLEAR_LOGS,
+  CLEAR_CURRENT,
+  SEARCH_LOGS,
+  CLEAR_LOGS,
 } from './types';
+
+import { v4 as uuidv4 } from 'uuid';
+import M from 'materialize-css/dist/js/materialize.min';
+import { defaultLogs } from '../defaults/defaultData';
 
 export const setLoading = () => ({
   type: SET_LOADING,
@@ -15,43 +21,76 @@ export const setLoading = () => ({
 
 // Get logs from server
 export const getLogs = () => async (dispatch) => {
-  try {
-    setLoading();
-    const res = await fetch('/logs');
-    const data = await res.json();
-
+  setLoading();
+  if (localStorage.token) {
+    try {
+      const res = await fetch('/api/logs', {
+        headers: {
+          'x-auth-token': localStorage.getItem('token'),
+        },
+      });
+      const data = await res.json();
+      if (data.error) {
+        localStorage.removeItem('token');
+        dispatch({
+          type: GET_LOGS,
+          payload: defaultLogs,
+        });
+      } else {
+        dispatch({
+          type: GET_LOGS,
+          payload: data,
+        });
+      }
+    } catch (err) {
+      localStorage.removeItem('token');
+      dispatch({
+        type: GET_LOGS,
+        payload: defaultLogs,
+      });
+    }
+  } else {
     dispatch({
       type: GET_LOGS,
-      payload: data,
-    });
-  } catch (err) {
-    dispatch({
-      type: LOGS_ERROR,
-      payload: err.response.data,
+      payload: defaultLogs,
     });
   }
 };
+
 // Add new log
 export const addLog = (logContent) => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch('/logs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/JSON',
-      },
-      body: JSON.stringify(logContent),
-    });
+    if (localStorage.token) {
+      const res = await fetch('/api/logs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/JSON',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+        body: JSON.stringify(logContent),
+      });
 
-    const data = await res.json();
-    dispatch({
-      type: ADD_LOG,
-      payload: data,
-    });
+      const data = await res.json();
+      if (data.error) {
+        localStorage.removeItem('token');
+      } else {
+        dispatch({
+          type: ADD_LOG,
+          payload: data,
+        });
+      }
+    } else {
+      dispatch({
+        type: ADD_LOG,
+        payload: { ...logContent, _id: uuidv4() },
+      });
+    }
   } catch (err) {
+    localStorage.removeItem('token');
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data,
+      payload: err,
     });
   }
 };
@@ -59,18 +98,28 @@ export const addLog = (logContent) => async (dispatch) => {
 export const deleteLog = (id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`/logs/${id}`, {
-      method: 'DELETE',
-    });
-
+    if (localStorage.token) {
+      await fetch(`api/logs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/JSON',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+      });
+    }
     dispatch({
       type: DELETE_LOG,
       payload: id,
     });
+    M.toast({ html: 'Log deleted', classes: 'orange' });
   } catch (err) {
+    M.toast({
+      html: 'Oops! We encountered an error trying to delete this log.',
+      classes: 'red',
+    });
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data,
+      payload: err,
     });
   }
 };
@@ -91,25 +140,41 @@ export const clearCurrent = () => (dispatch) => {
 // Update log
 export const updateLog = (logContent) => async (dispatch) => {
   try {
-    // console.log(logContent);
     setLoading();
-    const res = await fetch(`/logs/${logContent.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/JSON',
-      },
-      body: JSON.stringify(logContent),
-    });
+    if (localStorage.token) {
+      const res = await fetch(`/api/logs/${logContent._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/JSON',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+        body: JSON.stringify(logContent),
+      });
 
-    const data = await res.json();
-    dispatch({
-      type: UPDATE_LOG,
-      payload: data,
+      const data = await res.json();
+      dispatch({
+        type: UPDATE_LOG,
+        payload: data,
+      });
+    } else {
+      dispatch({
+        type: UPDATE_LOG,
+        payload: logContent,
+      });
+    }
+    M.toast({
+      html: 'Log updated!',
+      classes: 'green',
     });
   } catch (err) {
+    localStorage.removeItem('token');
+    M.toast({
+      html: 'Oops! We encountered an error updating this log.',
+      classes: 'red',
+    });
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data,
+      payload: err,
     });
   }
 };
