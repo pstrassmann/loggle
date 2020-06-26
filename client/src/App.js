@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import SearchBar from './components/layout/SearchBar';
+import Navbar from './components/layout/Navbar';
 import Logs from './components/logs/Logs';
 import AddBtn from './components/layout/AddBtn';
 import AddLogModal from './components/logs/AddLogModal';
@@ -11,6 +11,8 @@ import './App.css';
 import AddTechModal from './components/techs/AddTechModal';
 import { Provider } from 'react-redux';
 import store from './store';
+import RegisterModal from './components/auth/RegisterModal';
+import LoginModal from './components/auth/LoginModal';
 
 const App = () => {
   useEffect(() => {
@@ -21,9 +23,11 @@ const App = () => {
   return (
     <Provider store={store}>
       <>
-        <SearchBar />
+        <Navbar />
         <div className="container">
           <AddBtn />
+          <RegisterModal/>
+          <LoginModal/>
           <AddLogModal />
           <EditLogModal />
           <AddTechModal />
