@@ -15,10 +15,6 @@ const AddTechModal = ({ addTech }) => {
       M.toast({ html: 'Please enter full name of technician', classes: 'red' });
     } else {
       addTech({ firstName, lastName });
-      M.toast({
-        html: `Added ${firstName} ${lastName}`,
-        classes: 'green',
-      });
       const modalInstance = M.Modal.getInstance(addTechModal.current);
       modalInstance.close();
       setFirstName('');
@@ -66,7 +62,7 @@ const AddTechModal = ({ addTech }) => {
         <button
           type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn blue hover-effect"
+          className="waves-effect btn background-primary-light hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter

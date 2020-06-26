@@ -10,16 +10,12 @@ const AddLogModal = (props) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
-
   const addLogModal = useRef(0);
 
   const onSubmit = (event) => {
     event.preventDefault();
     if (message === '' || tech === '') {
-      M.toast({
-        html: 'Please enter a log message and technician',
-        classes: 'red',
-      });
+
     } else {
       const modalInstance = M.Modal.getInstance(addLogModal.current);
       modalInstance.close();
@@ -27,11 +23,7 @@ const AddLogModal = (props) => {
         message,
         attention,
         tech,
-        date: new Date(),
-      });
-      M.toast({
-        html: `Log added by ${tech}`,
-        classes: 'green',
+        date: (new Date()).toISOString(),
       });
       setMessage('');
       setTech('');
@@ -106,7 +98,7 @@ const AddLogModal = (props) => {
         <button
           type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn blue hover-effect"
+          className="waves-effect btn background-primary-light hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter
@@ -118,7 +110,7 @@ const AddLogModal = (props) => {
 
 const modalStyle = {
   width: '75%',
-  height: '75%',
+  height: 'auto',
 };
 
 AddLogModal.propTypes = {

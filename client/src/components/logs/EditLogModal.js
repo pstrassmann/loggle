@@ -28,15 +28,11 @@ const EditLogModal = ({ current, updateLog }) => {
       });
     } else {
       updateLog({
-        id: current.id,
+        _id: current._id,
         message,
         attention,
         tech,
-        date: new Date(),
-      });
-      M.toast({
-        html: 'Log updated',
-        classes: 'green',
+        date: (new Date()).toISOString(),
       });
       const modalInstance = M.Modal.getInstance(editLogModal.current);
       modalInstance.close();
@@ -112,7 +108,7 @@ const EditLogModal = ({ current, updateLog }) => {
         <button
           type="submit"
           onClick={onSubmit}
-          className="waves-effect waves-light btn blue hover-effect"
+          className="waves-effect btn background-primary-light hover-effect"
           style={{ marginRight: '1rem' }}
         >
           Enter
