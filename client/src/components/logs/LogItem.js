@@ -5,12 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteLog, setCurrent } from '../../actions/logActions';
 import { setSearchTech } from '../../actions/techActions';
-import M from 'materialize-css/dist/js/materialize.min';
 
 const LogItem = ({ log, deleteLog, setCurrent, setSearchTech }) => {
   const onDelete = () => {
-    deleteLog(log.id);
-    M.toast({ html: 'Log deleted', classes: 'orange' });
+    deleteLog(log._id);
   };
   return (
     <li
@@ -31,7 +29,6 @@ const LogItem = ({ log, deleteLog, setCurrent, setSearchTech }) => {
         </span>
         <br />
         <span className="grey-text">
-          <span className="black-text">{`ID #${log.id} `}</span>
           {'last updated by '}
           <span className="black-text clickable-label" onClick={() => setSearchTech(log.tech)}>{`${log.tech}`}</span>
           {log.date &&
