@@ -39,7 +39,7 @@ const LoginModal = ({ loginUser }) => {
   return (
     <div ref={loginModal} id="login-modal" className="modal">
       <div className="modal-content">
-        <h4 style={{ marginBottom: '2rem' }}>Login</h4>
+        <h4 className = "background-primary-light rounded-top-corners" style={{ textAlign: "center", color: "white", padding: "0.3rem 0.5rem" ,marginBottom: '2rem', fontFamily: 'Exo, sans-serif' }}>Login</h4>
         <div className="row">
           <div className="input-field">
             <input
