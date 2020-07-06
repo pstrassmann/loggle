@@ -14,21 +14,25 @@ const AddLogModal = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (message === '' || tech === '') {
-
-    } else {
-      const modalInstance = M.Modal.getInstance(addLogModal.current);
-      modalInstance.close();
-      addLog({
-        message,
-        attention,
-        tech,
-        date: (new Date()).toISOString(),
-      });
-      setMessage('');
-      setTech('');
-      setAttention(false);
+    if (message === '') {
+      M.toast({ html: 'Please enter a log message', classes: 'red' });
+      return;
     }
+    if (tech === '') {
+      M.toast({ html: 'Please select a technician', classes: 'red' });
+      return;
+    }
+    const modalInstance = M.Modal.getInstance(addLogModal.current);
+    modalInstance.close();
+    addLog({
+      message,
+      attention,
+      tech,
+      date: new Date().toISOString(),
+    });
+    setMessage('');
+    setTech('');
+    setAttention(false);
   };
 
   return (

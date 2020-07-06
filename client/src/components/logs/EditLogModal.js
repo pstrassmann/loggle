@@ -21,9 +21,9 @@ const EditLogModal = ({ current, updateLog }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (message === '' || tech === '') {
+    if (message === '') {
       M.toast({
-        html: 'Please fill out all fields',
+        html: 'Log message cannot be empty',
         classes: 'red',
       });
     } else {
