@@ -16,7 +16,7 @@ export const defaultLogs = [
   {
     message: 'Keyboard failures on workstation 23',
     attention: true,
-    tech: 'Rey Palpatine',
+    tech: 'Rey Skywalker',
     date: '2020-06-19T21:38:58.630Z',
     _id: 3,
   },
@@ -45,8 +45,8 @@ export const defaultLogs = [
 
 export const defaultTechs = [
   {
-    firstName: 'Sara',
-    lastName: 'Wilson',
+    firstName: 'Din',
+    lastName: 'Djarin',
     _id: 1,
   },
   {
@@ -66,7 +66,7 @@ export const defaultTechs = [
   },
   {
     firstName: 'Rey',
-    lastName: 'Palpatine',
+    lastName: 'Skywalker',
     _id: 5,
   },
   {
