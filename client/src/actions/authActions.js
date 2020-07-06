@@ -17,7 +17,7 @@ export const registerUser = (formContent) => async (dispatch) => {
       payload: formContent.name,
     });
     M.toast({
-      html: 'Success! Welcome to Logger.',
+      html: 'Success! Welcome to Loggle.',
       classes: 'green',
     });
   } catch (err) {

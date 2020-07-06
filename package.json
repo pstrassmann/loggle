@@ -1,5 +1,5 @@
 {
-  "name": "it-logger",
+  "name": "Loggle",
   "version": "1.0.0",
   "description": "Track IT Dept System Logs",
   "main": "server.js",
