@@ -44,7 +44,7 @@ const RegisterModal = ({ registerUser }) => {
       <div className="modal-content">
         <h4 className = "background-primary-light rounded-top-corners" style={{ textAlign: "center", color: "white", padding: "0.3rem 0.5rem" ,marginBottom: '2rem', fontFamily: 'Exo, sans-serif' }}>Register Tech Team</h4>
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <input
               type="text"
               name="name"
@@ -55,9 +55,7 @@ const RegisterModal = ({ registerUser }) => {
               Username
             </label>
           </div>
-        </div>
-        <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <input
               type="email"
               name="email"
@@ -70,7 +68,7 @@ const RegisterModal = ({ registerUser }) => {
           </div>
         </div>
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s12">
             <input
               type="password"
               name="password"
@@ -83,7 +81,7 @@ const RegisterModal = ({ registerUser }) => {
           </div>
         </div>
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s12">
             <input
               type="password"
               name="password2"

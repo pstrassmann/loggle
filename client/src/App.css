@@ -145,3 +145,15 @@
 .text-primary-dark {
     color: #005b63;
 }
+
+@media all and (max-width: 600px) {
+
+    #navlinks {
+        flex-direction: column;
+    }
+
+    #navlinks li:nth-child(1) {
+        margin-right: 0rem;
+    }
+}
+
