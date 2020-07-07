@@ -16,7 +16,7 @@ const initialState = {
   current: null,
   loading: false,
   error: null,
-  filteredLogs: [],
+  filteredLogs: null,
 };
 
 export default (state = initialState, action) => {
@@ -47,6 +47,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         logs: state.logs.filter((log) => log._id !== action.payload),
+        filteredLogs: state.filteredLogs
+          ? state.filteredLogs.filter((log) => log._id !== action.payload)
+          : null,
         loading: false,
       };
     case SET_CURRENT:
@@ -68,19 +71,32 @@ export default (state = initialState, action) => {
           }
           return log;
         }),
+        filteredLogs: state.filteredLogs
+          ? state.filteredLogs.map((log) => {
+              if (log._id === action.payload._id) {
+                return action.payload;
+              }
+              return log;
+            })
+          : null,
       };
     case SEARCH_LOGS:
+      // Escapes special characters from search
+      const escapeRegExp = (string) => {
+        return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+      };
+
       return {
         ...state,
         filteredLogs: state.logs.filter((log) => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
+          const regex = new RegExp(escapeRegExp(action.payload), 'gi');
           return log.message.match(regex) || log.tech.match(regex);
         }),
       };
     case CLEAR_LOGS:
       return {
         ...state,
-        filteredLogs: [],
+        filteredLogs: null,
       };
     default:
       return state;

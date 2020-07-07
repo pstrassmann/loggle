@@ -26,7 +26,7 @@ const Logs = (props) => {
     return <Preloader />;
   }
 
-  if (filteredLogs.length === 0) {
+  if (filteredLogs === null) {
     return (
       <>
         <SearchBar/>
@@ -44,7 +44,7 @@ const Logs = (props) => {
       <>
       <SearchBar/>
       <ul className="collection">
-        {!loading && filteredLogs.length === 0 ? (
+        {filteredLogs.length === 0 ? (
           <p className="center">No matches</p>
         ) : (
           filteredLogs.map((log) => <LogItem log={log} key={log._id} />)
