@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@800&display=swap');
 
+.container {
+    min-height: calc(100vh - 2.2rem);
+}
 
 .button-icon-only {
     transition: transform 200ms;
