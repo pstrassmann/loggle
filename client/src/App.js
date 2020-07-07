@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import Logs from './components/logs/Logs';
 import AddBtn from './components/layout/AddBtn';
 import AddLogModal from './components/logs/AddLogModal';
@@ -34,6 +35,7 @@ const App = () => {
           <TechListModal />
           <Logs />
         </div>
+        <Footer/>
       </>
     </Provider>
   );
