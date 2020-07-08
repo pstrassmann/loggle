@@ -86,6 +86,7 @@ export const addLog = (logContent) => async (dispatch) => {
         payload: { ...logContent, _id: uuidv4() },
       });
     }
+    M.toast({ html: 'Log added!', classes: 'green' });
   } catch (err) {
     localStorage.removeItem('token');
     dispatch({
